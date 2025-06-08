@@ -62,7 +62,7 @@ const SortingVisualizer = () => {
         style={{
           display: "flex",
           alignItems: "flex-end",
-          height: "320px",
+          height: "400px",
         }}
       >
         {array.map((value, idx) => (
@@ -71,11 +71,12 @@ const SortingVisualizer = () => {
               style={{
                 backgroundColor: "teal",
                 width: "20px",
+                marginLeft:"20px",
                 height: `${value * 3}px`,
-                transition: "height 0.2s ease",
+                transition: "height 0.4s ease",
               }}
             ></div>
-            <div style={{ marginTop: "5px", fontSize: "12px", color: "#333" }}>
+            <div style={{ marginTop: "30px", fontSize: "20px", color: "#333" }}>
               {value}
             </div>
           </div>

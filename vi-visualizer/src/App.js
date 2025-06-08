@@ -1,41 +1,41 @@
-import React, { useState } from "react";
-import TopicSelector from "./TopicSelector";
-import SortingVisualizer from "./components/SortingVisualizer";
-import SelectionSortVisualizer from "./components/SelectionSortVisualizer";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useState } from 'react';
+import Home from './Home';
+import SortingVisualizer from './components/SortingVisualizer';
+import SelectionSortVisualizer from './components/SelectionSortVisualizer';
+import InsertionVisualizer from './components/InsertionSortVisualizer';
 
 function App() {
   const [selectedTopic, setSelectedTopic] = useState(null);
 
+  const renderVisualizer = () => {
+    switch (selectedTopic) {
+      case "Bubble Sort":
+        return <SortingVisualizer />;
+      case "Selection Sort":
+        return <SelectionSortVisualizer />;
+      case "Insertion Sort":
+        return <InsertionVisualizer />;
+      default:
+        return <p>Visualizer for "{selectedTopic}" coming soon!</p>;
+    }
+  };
+
   return (
-    <div className="container my-4">
-      <h1 className="text-center mb-4">AI Visualizer - DSA Topics</h1>
-      <div className="row">
-        {/* Sidebar with topics */}
-        <div className="col-md-3">
-          <h4>Choose a Topic:</h4>
-          <TopicSelector onSelect={setSelectedTopic} />
-        </div>
+    <>
+      {selectedTopic ? (
+        <div className="container mt-4">
+          {/* 🔙 Back to Home Button */}
+          <button onClick={() => setSelectedTopic(null)} className="btn btn-secondary mb-3">
+            ⬅ Back to Home
+          </button>
 
-        {/* Main display area */}
-        <div className="col-md-9">
-          {selectedTopic ? (
-            <div>
-              <h2>{selectedTopic}</h2>
-
-              {/* Conditionally show visualization based on selected topic */}
-              {selectedTopic === "Bubble Sort" && <SortingVisualizer />}
-              {selectedTopic === "Selection Sort" && <SelectionSortVisualizer />}
-              {selectedTopic !== "Bubble Sort" && selectedTopic !== "Selection Sort" && (
-                <p>Visualization for "{selectedTopic}" coming soon!</p>
-              )}
-            </div>
-          ) : (
-            <p>Please select a topic from the left to see visualization.</p>
-          )}
+          <h2 className="text-primary mb-4">{selectedTopic}</h2>
+          {renderVisualizer()}
         </div>
-      </div>
-    </div>
+      ) : (
+        <Home onSelect={setSelectedTopic} />
+      )}
+    </>
   );
 }
 
